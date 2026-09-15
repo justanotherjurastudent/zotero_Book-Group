@@ -1,6 +1,6 @@
 # Architektur
 
-Dieses Dokument beschreibt den Aufbau des Plugins **Book Group** (`bookgroup@example.com`) für Zotero 10: welche Komponenten es gibt, wie Daten zwischen ihnen fließen, wie das Plugin in den Lebenszyklus von Zotero eingebunden ist und warum die Implementierung so aussieht, wie sie aussieht.
+Dieses Dokument beschreibt den Aufbau des Plugins **Book Group** (`bookgroup@justanotherjurastudent.github.io`) für Zotero 10: welche Komponenten es gibt, wie Daten zwischen ihnen fließen, wie das Plugin in den Lebenszyklus von Zotero eingebunden ist und warum die Implementierung so aussieht, wie sie aussieht.
 
 Für die Programmierschnittstellen siehe [api.md](api.md), für die Bedienung [user-guide.md](user-guide.md).
 

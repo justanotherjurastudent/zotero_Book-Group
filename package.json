@@ -5,7 +5,7 @@
   "description": "Groups book sections and encyclopedia articles visually under their edited volume, based on Zotero's related-item relations.",
   "config": {
     "addonName": "Book Group",
-    "addonID": "bookgroup@example.com",
+    "addonID": "bookgroup@justanotherjurastudent.github.io",
     "addonRef": "bookgroup",
     "addonInstance": "BookGroup",
     "prefsPrefix": "extensions.zotero.bookgroup"
