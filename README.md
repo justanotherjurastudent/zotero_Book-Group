@@ -22,6 +22,10 @@ In Zotero stehen Buchteile alphabetisch verstreut in der Bibliothek, getrennt vo
 - **Bleibt erhalten:** Eine aktive Gruppierung der Hauptliste wird nach einem Plugin-Update oder erneutem Aktivieren wiederhergestellt.
 - Oberfläche auf Deutsch und Englisch.
 
+Beispiel:
+<img width="1004" height="395" alt="image" src="https://github.com/user-attachments/assets/1ac1578d-6a67-4562-8cfb-fba48a398a18" />
+
+
 ## Schnellstart
 
 1. `book-group.xpi` aus den [Releases](https://github.com/justanotherjurastudent/zotero_SortPartsToBooks/releases) herunterladen.
