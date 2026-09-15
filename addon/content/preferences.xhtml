@@ -1,0 +1,89 @@
+<linkset>
+  <html:link rel="localization" href="__addonRef__-preferences.ftl" />
+</linkset>
+<vbox
+  id="zotero-prefpane-__addonRef__"
+  onload="Zotero.__addonInstance__.hooks.onPrefsEvent('load', { window })"
+>
+  <groupbox>
+    <label><html:h2 data-l10n-id="pref-title"></html:h2></label>
+    <checkbox
+      id="__addonRef__-pref-enable"
+      preference="enable"
+      data-l10n-id="pref-enable"
+    />
+    <html:div data-l10n-id="pref-enable-description"></html:div>
+    <checkbox
+      id="__addonRef__-pref-citation-dialog"
+      preference="citationDialog"
+      data-l10n-id="pref-citation-dialog"
+    />
+  </groupbox>
+
+  <groupbox>
+    <label><html:h2 data-l10n-id="pref-sorting-title"></html:h2></label>
+    <hbox align="center">
+      <label data-l10n-id="pref-base-sort" />
+      <menulist id="__addonRef__-pref-base-sort" preference="baseSort">
+        <menupopup>
+          <menuitem value="creator" data-l10n-id="pref-base-sort-creator" />
+          <menuitem value="title" data-l10n-id="pref-base-sort-title" />
+        </menupopup>
+      </menulist>
+    </hbox>
+  </groupbox>
+
+  <groupbox>
+    <label><html:h2 data-l10n-id="pref-appearance-title"></html:h2></label>
+    <hbox align="center">
+      <html:label
+        for="__addonRef__-pref-indent"
+        data-l10n-id="pref-indent"
+      ></html:label>
+      <html:input
+        type="range"
+        id="__addonRef__-pref-indent"
+        min="0"
+        max="64"
+        step="2"
+        preference="indent"
+      />
+      <html:span id="__addonRef__-pref-indent-value"></html:span>
+    </hbox>
+
+    <!-- Zotero's <color-picker> (elements/colorPicker.js), loaded and bound
+         to the preferences by src/modules/preferencePane.ts -->
+    <hbox align="center">
+      <checkbox
+        id="__addonRef__-pref-bg-enabled"
+        preference="bgEnabled"
+        data-l10n-id="pref-bg-enabled"
+      />
+      <color-picker id="__addonRef__-pref-bg-color" class="bookgroup-color" />
+    </hbox>
+
+    <hbox align="center">
+      <checkbox
+        id="__addonRef__-pref-contour-enabled"
+        preference="contourEnabled"
+        data-l10n-id="pref-contour-enabled"
+      />
+      <color-picker
+        id="__addonRef__-pref-contour-color"
+        class="bookgroup-color"
+      />
+    </hbox>
+
+    <label data-l10n-id="pref-color-mode" />
+    <radiogroup id="__addonRef__-pref-color-mode" preference="colorMode">
+      <radio value="fixed" data-l10n-id="pref-color-mode-fixed" />
+      <radio value="random" data-l10n-id="pref-color-mode-random" />
+    </radiogroup>
+    <hbox>
+      <button
+        id="__addonRef__-pref-reset-colors"
+        data-l10n-id="pref-reset-colors"
+      />
+    </hbox>
+  </groupbox>
+</vbox>

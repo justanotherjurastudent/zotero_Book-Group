@@ -1,0 +1,70 @@
+/*
+ * Book Group – visual grouping of contributions under their edited volume.
+ *
+ * Custom properties (set on :root by the plugin, see src/modules/styles.ts):
+ *   --bookgroup-indent         indentation of contributions (px)
+ *   --bookgroup-bg-color       fixed background color for volumes
+ *   --bookgroup-contour-color  fixed contour color for groups
+ * Set per row when "random colors" is active:
+ *   --bookgroup-group-color    persistent color of the row's group
+ */
+
+/* ---------- Item tree (main window, citation/bibliography dialogs) ---------- */
+
+/* Only the first column is indented. Zotero sets padding-inline-start: 0 on
+   the first cell, so the indentation does not interfere with the tree's own
+   .cell-indent spacer for child rows. */
+.virtualized-table .row.bookgroup-child > .cell.first-column {
+  padding-inline-start: var(--bookgroup-indent, 16px);
+}
+
+/* Rows are absolutely positioned by windowed-list.js, so ::before can anchor to
+   them. A background-image overlay keeps Zotero's own odd/even and selection
+   background-color rules intact. */
+.virtualized-table .row.bookgroup-parent.bookgroup-bg:not(.selected) {
+  --bookgroup-tint: color-mix(
+    in srgb,
+    var(--bookgroup-group-color, var(--bookgroup-bg-color, #4f8ff7)) 22%,
+    transparent
+  );
+  background-image: linear-gradient(
+    var(--bookgroup-tint),
+    var(--bookgroup-tint)
+  );
+}
+
+.virtualized-table .row.bookgroup-contour::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 3px;
+  background-color: var(
+    --bookgroup-group-color,
+    var(--bookgroup-contour-color, #4f8ff7)
+  );
+  pointer-events: none;
+}
+
+/* ---------- Citation dialog, list mode ---------- */
+
+#list-layout .item.bookgroup-child {
+  margin-inline-start: var(--bookgroup-indent, 16px);
+}
+
+#list-layout .item.bookgroup-parent.bookgroup-bg:not(.selected) {
+  --bookgroup-tint: color-mix(
+    in srgb,
+    var(--bookgroup-group-color, var(--bookgroup-bg-color, #4f8ff7)) 22%,
+    transparent
+  );
+  background-image: linear-gradient(
+    var(--bookgroup-tint),
+    var(--bookgroup-tint)
+  );
+}
+
+#list-layout .item.bookgroup-contour {
+  box-shadow: inset 3px 0 0
+    var(--bookgroup-group-color, var(--bookgroup-contour-color, #4f8ff7));
+}

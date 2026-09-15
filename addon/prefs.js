@@ -1,0 +1,11 @@
+pref("enable", true);
+pref("baseSort", "creator");
+pref("indent", 16);
+pref("bgEnabled", true);
+pref("bgColor", "#4f8ff7");
+pref("contourEnabled", true);
+pref("contourColor", "#4f8ff7");
+pref("colorMode", "fixed");
+pref("groupColors", "{}");
+pref("citationDialog", true);
+pref("restoreGroupSort", false);
