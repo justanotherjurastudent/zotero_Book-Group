@@ -432,10 +432,10 @@ Das Plugin greift ausschließlich **lesend** auf Zoteros SQLite-Datenbank zu. Es
 
 `RelationCache` nutzt zwei `Zotero.DB.queryAsync()`-Aufrufe (reine `SELECT`-Anweisungen):
 
-| Methode               | Tabellen                                                        | Zweck                                                                          |
-| --------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| `loadCandidates()`    | `items`, `deletedItems`                                         | Alle nicht gelöschten Items der Gruppierungstypen (book, bookSection, …)       |
-| `loadRelationRows()`  | `itemRelations`, `relationPredicates`, `items`                  | `dc:relation`-Zeilen dieser Items, gefiltert auf das richtige Prädikat         |
+| Methode              | Tabellen                                       | Zweck                                                                    |
+| -------------------- | ---------------------------------------------- | ------------------------------------------------------------------------ |
+| `loadCandidates()`   | `items`, `deletedItems`                        | Alle nicht gelöschten Items der Gruppierungstypen (book, bookSection, …) |
+| `loadRelationRows()` | `itemRelations`, `relationPredicates`, `items` | `dc:relation`-Zeilen dieser Items, gefiltert auf das richtige Prädikat   |
 
 Warum SQL statt `item.relatedItems`: Beim Start sind die Relationen nicht für jedes Item geladen (`Item.prototype._getRelatedItems()` ruft `_requireData('relations')` auf). Ein Zugriff über die Item-API würde für ungeladene Items eine `UnloadedDataException` auslösen oder erzwingen, dass das Plugin die Relationen aller Items einzeln nachlädt. Das ist bei großen Bibliotheken zu langsam. Die SQL-Abfragen sind gegen **Zotero 10.0.2** geprüft.
 
