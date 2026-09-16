@@ -12,13 +12,13 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/justanotherjurastudent/zotero_SortPartsToBooks.git"
+		"url": "git+https://github.com/justanotherjurastudent/zotero_Book-Group.git"
 	},
 	"author": "justanotherjurastudent",
 	"bugs": {
-		"url": "https://github.com/justanotherjurastudent/zotero_SortPartsToBooks/issues"
+		"url": "https://github.com/justanotherjurastudent/zotero_Book-Group/issues"
 	},
-	"homepage": "https://github.com/justanotherjurastudent/zotero_SortPartsToBooks#readme",
+	"homepage": "https://github.com/justanotherjurastudent/zotero_Book-Group#readme",
 	"license": "AGPL-3.0-or-later",
 	"scripts": {
 		"start": "zotero-plugin serve",

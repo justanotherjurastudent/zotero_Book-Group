@@ -25,7 +25,7 @@ Nach diesem Handbuch haben Sie das Plugin installiert, Ihre ersten Beiträge mit
 
 ### Aus einem Release
 
-1. Laden Sie die Datei `book-group.xpi` aus den Releases des Repositorys herunter: <https://github.com/justanotherjurastudent/zotero_SortPartsToBooks/releases>
+1. Laden Sie die Datei `book-group.xpi` aus den Releases des Repositorys herunter: <https://github.com/justanotherjurastudent/zotero_Book-Group/releases>
 2. Öffnen Sie in Zotero **Werkzeuge → Plugins** (_Tools → Plugins_).
 3. Klicken Sie auf das Zahnrad-Symbol und wählen Sie **Plugin aus Datei installieren…** (_Install Plugin From File…_).
 4. Wählen Sie die heruntergeladene `.xpi`-Datei aus.
@@ -35,8 +35,8 @@ Ein Neustart von Zotero ist nicht erforderlich.
 ### Selbst bauen
 
 ```bash
-git clone https://github.com/justanotherjurastudent/zotero_SortPartsToBooks.git
-cd zotero_SortPartsToBooks
+git clone https://github.com/justanotherjurastudent/zotero_Book-Group.git
+cd zotero_Book-Group
 npm install
 npm run build
 ```
@@ -218,7 +218,7 @@ Aufschlussreiche Meldungen:
 
 Ausnahmen, die das Plugin abfängt, werden zusätzlich mit `Zotero.logError` in die Fehlerkonsole geschrieben (**Werkzeuge → Entwickler → Fehlerkonsole**).
 
-Wenn Sie ein Problem melden, fügen Sie die Debug-Ausgabe und Ihre Zotero-Version an: <https://github.com/justanotherjurastudent/zotero_SortPartsToBooks/issues>
+Wenn Sie ein Problem melden, fügen Sie die Debug-Ausgabe und Ihre Zotero-Version an: <https://github.com/justanotherjurastudent/zotero_Book-Group/issues>
 
 ### Nach einem Update wirkt noch die alte Version
 

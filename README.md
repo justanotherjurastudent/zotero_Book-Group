@@ -31,7 +31,7 @@ Beispiel:
 
 ## Schnellstart
 
-1. `book-group.xpi` aus den [Releases](https://github.com/justanotherjurastudent/zotero_SortPartsToBooks/releases) herunterladen.
+1. `book-group.xpi` aus den [Releases](https://github.com/justanotherjurastudent/zotero_Book-Group/releases) herunterladen.
 2. In Zotero 10: **Werkzeuge → Plugins → Zahnrad → Plugin aus Datei installieren…**
 3. Buch und Buchteil über **Verwandt** verknüpfen (oder beim Buch **Buchteil erstellen** verwenden).
 4. **Ansicht → Sortieren nach → Nach Sammelwerk gruppieren** wählen.
@@ -139,7 +139,7 @@ Example:
 
 ## Quick Start
 
-1. Download `book-group.xpi` from [Releases](https://github.com/justanotherjurastudent/zotero_SortPartsToBooks/releases).
+1. Download `book-group.xpi` from [Releases](https://github.com/justanotherjurastudent/zotero_Book-Group/releases).
 2. In Zotero 10: **Tools → Add-ons → Gear Icon → Install Add-on from File…**
 3. Link book and book section via **Related** (or use **Create Book Section** on the book).
 4. Select **View → Sort by → Group by Collection**.
