@@ -27,7 +27,7 @@
 		"lint:fix": "prettier --write --ignore-path .gitignore --ignore-path .prettierignore --ignore-path .git/info/exclude . && eslint . --fix",
 		"release": "zotero-plugin release",
 		"test": "zotero-plugin test",
-		"test:unit": "node --test \"test/unit/*.test.ts\"",
+		"test:unit": "node --test test/unit/*.test.ts",
 		"update-deps": "npm update --save"
 	},
 	"dependencies": {
