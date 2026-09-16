@@ -11,21 +11,31 @@ on:
 jobs:
     lint:
         runs-on: ubuntu-latest
-        env:
-            GITHUB_TOKEN: ${{ secrets.GitHub_TOKEN }}
         steps:
-            - name: Setup JS
-              uses: zotero-plugin-dev/workflows/setup-js@main
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+                  cache: "npm"
+            - name: Install dependencies
+              run: npm ci
             - name: Run Lint
               run: npm run lint:check
 
     build:
         runs-on: ubuntu-latest
-        env:
-            GITHUB_TOKEN: ${{ secrets.GitHub_TOKEN }}
         steps:
-            - name: Setup JS
-              uses: zotero-plugin-dev/workflows/setup-js@main
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+                  cache: "npm"
+            - name: Install dependencies
+              run: npm ci
             - name: Run Build
               run: npm run build
             - name: Upload build result
@@ -39,6 +49,16 @@ jobs:
         needs:
             - build
         steps:
-            - name: Setup JS
-              uses: zotero-plugin-dev/workflows/setup-js@main
-            - run: npm run test
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+                  cache: "npm"
+            - name: Install dependencies
+              run: npm ci
+            - name: Run Unit Tests
+              run: npm run test:unit
+            - name: Run Integration Tests
+              run: npm run test -- --no-watch
