@@ -9,21 +9,21 @@ let typeKinds: Map<number, ItemKind> | null = null;
  * missing from the running schema are skipped instead of failing.
  */
 export function getTypeKinds(): Map<number, ItemKind> {
-  if (!typeKinds) {
-    const kinds = new Map<number, ItemKind>();
-    const add = (names: readonly string[], kind: ItemKind) => {
-      for (const name of names) {
-        const id = Zotero.ItemTypes.getID(name);
-        if (typeof id === "number") {
-          kinds.set(id, kind);
-        }
-      }
-    };
-    add(CONTAINER_TYPES, "container");
-    add(CONTRIBUTION_TYPES, "contribution");
-    typeKinds = kinds;
-  }
-  return typeKinds;
+	if (!typeKinds) {
+		const kinds = new Map<number, ItemKind>();
+		const add = (names: readonly string[], kind: ItemKind) => {
+			for (const name of names) {
+				const id = Zotero.ItemTypes.getID(name);
+				if (typeof id === "number") {
+					kinds.set(id, kind);
+				}
+			}
+		};
+		add(CONTAINER_TYPES, "container");
+		add(CONTRIBUTION_TYPES, "contribution");
+		typeKinds = kinds;
+	}
+	return typeKinds;
 }
 
 /**
@@ -33,9 +33,9 @@ export function getTypeKinds(): Map<number, ItemKind> {
  * both cases map to null here.
  */
 export function safeGetItem(id: number): Zotero.Item | null {
-  try {
-    return (Zotero.Items.get(id) as Zotero.Item | false) || null;
-  } catch {
-    return null;
-  }
+	try {
+		return (Zotero.Items.get(id) as Zotero.Item | false) || null;
+	} catch {
+		return null;
+	}
 }

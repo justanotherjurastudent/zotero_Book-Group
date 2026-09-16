@@ -1,13 +1,11 @@
 declare const _globalThis: {
-  [key: string]: any;
-  Zotero: _ZoteroTypes.Zotero;
-  ztoolkit: ZToolkit;
-  addon: typeof addon;
+	[key: string]: any;
+	Zotero: _ZoteroTypes.Zotero;
+	ztoolkit: ZToolkit;
+	addon: typeof addon;
 };
 
-declare type ZToolkit = ReturnType<
-  typeof import("../src/utils/ztoolkit").createZToolkit
->;
+declare type ZToolkit = ReturnType<typeof import("../src/utils/ztoolkit").createZToolkit>;
 
 declare const ztoolkit: ZToolkit;
 

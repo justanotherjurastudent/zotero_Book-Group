@@ -48,13 +48,13 @@ Beim Laden legt `src/index.ts` die Instanz der Klasse `Addon` (`src/addon.ts`) u
 ```js
 const bg = Zotero.BookGroup.api.getServices();
 if (!bg) {
-  throw new Error("Book Group ist nicht gestartet");
+	throw new Error("Book Group ist nicht gestartet");
 }
 return {
-  links: bg.relations.index.linkCount,
-  columnKey: bg.trees.columnKey,
-  settings: bg.settings.current,
-  pendingRestore: bg.pendingRestore,
+	links: bg.relations.index.linkCount,
+	columnKey: bg.trees.columnKey,
+	settings: bg.settings.current,
+	pendingRestore: bg.pendingRestore,
 };
 ```
 
@@ -66,19 +66,19 @@ return {
 
 ```ts
 interface BookGroupServices {
-  settings: SettingsStore;
-  relations: RelationCache;
-  sorter: GroupSorter;
-  colors: GroupColors;
-  trees: TreeIntegration;
-  dialogs: DialogIntegration;
-  viewMenu: ViewMenu;
-  /** Zotero.Notifier-Observer ("bookgroup-items", "bookgroup-view") */
-  observerIDs: string[];
-  /** Zotero.Prefs-Observer für Zoteros eigene Prefs (sortCreatorAsString) */
-  prefObserverIDs: symbol[];
-  /** Gruppierung des Hauptbaums muss nach einem Update noch wiederhergestellt werden */
-  pendingRestore: boolean;
+	settings: SettingsStore;
+	relations: RelationCache;
+	sorter: GroupSorter;
+	colors: GroupColors;
+	trees: TreeIntegration;
+	dialogs: DialogIntegration;
+	viewMenu: ViewMenu;
+	/** Zotero.Notifier-Observer ("bookgroup-items", "bookgroup-view") */
+	observerIDs: string[];
+	/** Zotero.Prefs-Observer für Zoteros eigene Prefs (sortCreatorAsString) */
+	prefObserverIDs: symbol[];
+	/** Gruppierung des Hauptbaums muss nach einem Update noch wiederhergestellt werden */
+	pendingRestore: boolean;
 }
 ```
 
@@ -97,15 +97,15 @@ type BaseSort = "creator" | "title";
 type ColorMode = "fixed" | "random";
 
 interface Settings {
-  enable: boolean;
-  citationDialog: boolean;
-  baseSort: BaseSort;
-  indent: number; // 0–64
-  bgEnabled: boolean;
-  bgColor: string; // "#rrggbb"
-  contourEnabled: boolean;
-  contourColor: string; // "#rrggbb"
-  colorMode: ColorMode;
+	enable: boolean;
+	citationDialog: boolean;
+	baseSort: BaseSort;
+	indent: number; // 0–64
+	bgEnabled: boolean;
+	bgColor: string; // "#rrggbb"
+	contourEnabled: boolean;
+	contourColor: string; // "#rrggbb"
+	colorMode: ColorMode;
 }
 
 type SettingKey = keyof Settings | "groupColors" | "restoreGroupSort";
@@ -135,9 +135,7 @@ Validierungsregeln von `read()`:
 
 ```js
 const { settings } = Zotero.BookGroup.api.getServices();
-const off = settings.onChange((key) =>
-  Zotero.debug(`Book Group: ${key} geändert`),
-);
+const off = settings.onChange((key) => Zotero.debug(`Book Group: ${key} geändert`));
 Zotero.Prefs.set("extensions.zotero.bookgroup.indent", 24, true);
 // settings.current.indent === 24
 off();
@@ -189,29 +187,29 @@ return relations.index.linkCount;
 type ItemKind = "container" | "contribution";
 
 interface GroupLink {
-  containerID: number;
-  contributionID: number;
-  // Buchtitel und mindestens ein Herausgeber passen; nur bei mehrdeutigen
-  // Beiträgen gesetzt
-  metadataMatch?: boolean;
+	containerID: number;
+	contributionID: number;
+	// Buchtitel und mindestens ein Herausgeber passen; nur bei mehrdeutigen
+	// Beiträgen gesetzt
+	metadataMatch?: boolean;
 }
 
 interface VolumeMetadata {
-  volumeTitle: string; // Sammelwerk: Titel; Beitrag: Buch-/Enzyklopädietitel
-  editors: string[]; // normalisierte Namen, siehe creatorKey()
+	volumeTitle: string; // Sammelwerk: Titel; Beitrag: Buch-/Enzyklopädietitel
+	editors: string[]; // normalisierte Namen, siehe creatorKey()
 }
 
 interface CandidateItem {
-  id: number;
-  libraryID: number;
-  key: string;
-  kind: ItemKind;
+	id: number;
+	libraryID: number;
+	key: string;
+	kind: ItemKind;
 }
 
 interface RelationRow {
-  subjectID: number; // Item, auf dem die Relation gespeichert ist
-  objectLibraryID: number;
-  objectKey: string;
+	subjectID: number; // Item, auf dem die Relation gespeichert ist
+	objectLibraryID: number;
+	objectKey: string;
 }
 ```
 
@@ -232,14 +230,14 @@ Dieselbe Verknüpfung aus beiden Richtungen erscheint nur einmal.
 
 ```ts
 resolveLinks(
-  [
-    { id: 1, libraryID: 1, key: "BOOK", kind: "container" },
-    { id: 2, libraryID: 1, key: "SEC", kind: "contribution" },
-  ],
-  [
-    { subjectID: 1, objectLibraryID: 1, objectKey: "SEC" },
-    { subjectID: 2, objectLibraryID: 1, objectKey: "BOOK" },
-  ],
+	[
+		{ id: 1, libraryID: 1, key: "BOOK", kind: "container" },
+		{ id: 2, libraryID: 1, key: "SEC", kind: "contribution" },
+	],
+	[
+		{ subjectID: 1, objectLibraryID: 1, objectKey: "SEC" },
+		{ subjectID: 2, objectLibraryID: 1, objectKey: "BOOK" },
+	],
 );
 // → [{ containerID: 1, contributionID: 2 }]
 ```
@@ -256,35 +254,35 @@ resolveLinks(
 
 ```ts
 const links = [
-  { containerID: 1, contributionID: 10 }, // Festschrift
-  { containerID: 5, contributionID: 10 }, // Kommentar
+	{ containerID: 1, contributionID: 10 }, // Festschrift
+	{ containerID: 5, contributionID: 10 }, // Kommentar
 ];
 markMetadataMatches(
-  links,
-  findAmbiguousContributions(links),
-  new Map([
-    [
-      10,
-      {
-        volumeTitle: "Kommentar",
-        editors: [creatorKey({ lastName: "Weber" })],
-      },
-    ],
-    [
-      1,
-      {
-        volumeTitle: "Festschrift",
-        editors: [creatorKey({ lastName: "Weber" })],
-      },
-    ],
-    [
-      5,
-      {
-        volumeTitle: "Kommentar",
-        editors: [creatorKey({ lastName: "Weber" })],
-      },
-    ],
-  ]),
+	links,
+	findAmbiguousContributions(links),
+	new Map([
+		[
+			10,
+			{
+				volumeTitle: "Kommentar",
+				editors: [creatorKey({ lastName: "Weber" })],
+			},
+		],
+		[
+			1,
+			{
+				volumeTitle: "Festschrift",
+				editors: [creatorKey({ lastName: "Weber" })],
+			},
+		],
+		[
+			5,
+			{
+				volumeTitle: "Kommentar",
+				editors: [creatorKey({ lastName: "Weber" })],
+			},
+		],
+	]),
 );
 new RelationIndex(links).getParentID(10); // 5: Titel und Herausgeber passen
 ```
@@ -304,8 +302,8 @@ new RelationIndex(links).getParentID(10); // 5: Titel und Herausgeber passen
 
 ```ts
 const index = new RelationIndex([
-  { containerID: 30, contributionID: 5 },
-  { containerID: 7, contributionID: 5 },
+	{ containerID: 30, contributionID: 5 },
+	{ containerID: 7, contributionID: 5 },
 ]);
 index.getParentID(5); // 7 (keine Metadaten markiert → kleinste Sammelwerk-ID)
 index.getChildIDs(30); // []
@@ -317,9 +315,7 @@ index.rebuild([{ containerID: 7, contributionID: 5 }]); // false, unverändert
 ```js
 const { relations } = Zotero.BookGroup.api.getServices();
 const [book] = Zotero.getActiveZoteroPane().getSelectedItems();
-return relations.index
-  .getChildIDs(book.id)
-  .map((id) => Zotero.Items.get(id).getDisplayTitle());
+return relations.index.getChildIDs(book.id).map((id) => Zotero.Items.get(id).getDisplayTitle());
 ```
 
 ---
@@ -369,14 +365,14 @@ const collation = Zotero.getLocaleCollation();
 const items = Zotero.getActiveZoteroPane().getSelectedItems();
 const direction = 1;
 items.sort(
-  (a, b) =>
-    (sorter.compare(
-      a,
-      b,
-      direction,
-      (x, y) => collation.compareString(1, x, y),
-      () => true, // alle Sammelwerke als sichtbar behandeln
-    ) ?? 0) * direction,
+	(a, b) =>
+		(sorter.compare(
+			a,
+			b,
+			direction,
+			(x, y) => collation.compareString(1, x, y),
+			() => true, // alle Sammelwerke als sichtbar behandeln
+		) ?? 0) * direction,
 );
 return items.map((item) => item.getDisplayTitle());
 ```
@@ -391,12 +387,12 @@ return items.map((item) => item.getDisplayTitle());
 type StringCompare = (a: string, b: string) => number;
 
 interface GroupEntry {
-  id: number;
-  rootID: number; // eigene ID oder ID des Sammelwerks
-  rootKey: readonly string[]; // Basisschlüssel des Gruppen-Roots
-  rank: 0 | 1; // 0 = Gruppen-Root, 1 = Beitrag
-  pageStart: number | null;
-  title: string;
+	id: number;
+	rootID: number; // eigene ID oder ID des Sammelwerks
+	rootKey: readonly string[]; // Basisschlüssel des Gruppen-Roots
+	rank: 0 | 1; // 0 = Gruppen-Root, 1 = Beitrag
+	pageStart: number | null;
+	title: string;
 }
 ```
 
@@ -434,9 +430,7 @@ Regeln von `parsePageStart` (Text wird getrimmt und kleingeschrieben):
 const collator = new Intl.Collator("de", { numeric: true });
 const cmp = (a: string, b: string) => collator.compare(a, b);
 const sortLikeZotero = (entries: GroupEntry[], direction: number) =>
-  [...entries].sort(
-    (a, b) => compareGroupEntries(a, b, direction, cmp) * direction,
-  );
+	[...entries].sort((a, b) => compareGroupEntries(a, b, direction, cmp) * direction);
 // Absteigend: Gruppen in umgekehrter Reihenfolge,
 // innerhalb der Gruppe weiterhin Sammelwerk → Beiträge nach Seiten.
 ```
@@ -471,21 +465,21 @@ await trees.refresh();
 
 ```ts
 interface SortCollation {
-  compareString(level: number, a: string, b: string): number;
+	compareString(level: number, a: string, b: string): number;
 }
 
 // Strukturtyp für Zoteros ItemTree (nur die verwendeten Teile)
 interface ItemTreeLike {
-  props: { id: string };
-  domEl?: Element;
-  tree?: { invalidate(): void; _columns?: VirtualizedTableColumns } | null;
-  rowProvider?: RowProviderLike;
-  getRow(index: number): TreeRow | undefined;
-  getSortField(): string;
-  _sortedColumn?: { dataKey: string; sortDirection?: number } | null;
-  sort(): Promise<unknown> | unknown;
-  forceUpdate?(callback?: () => void): void;
-  invalidateRowCache?(ids: number[] | true): void;
+	props: { id: string };
+	domEl?: Element;
+	tree?: { invalidate(): void; _columns?: VirtualizedTableColumns } | null;
+	rowProvider?: RowProviderLike;
+	getRow(index: number): TreeRow | undefined;
+	getSortField(): string;
+	_sortedColumn?: { dataKey: string; sortDirection?: number } | null;
+	sort(): Promise<unknown> | unknown;
+	forceUpdate?(callback?: () => void): void;
+	invalidateRowCache?(ids: number[] | true): void;
 }
 ```
 
@@ -527,7 +521,7 @@ Nach dem Wiederherstellen reichen alle Patch-Funktionen an die Originale durch (
 const { trees } = Zotero.BookGroup.api.getServices();
 const tree = Zotero.getActiveZoteroPane().itemsView;
 if (!trees.activate(tree)) {
-  throw new Error("Gruppierungsspalte nicht verfügbar");
+	throw new Error("Gruppierungsspalte nicht verfügbar");
 }
 // ...
 trees.deactivate(tree);

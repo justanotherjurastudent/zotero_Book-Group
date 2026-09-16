@@ -9,6 +9,7 @@
 [![Using Zotero Plugin Template](https://img.shields.io/badge/Using-Zotero%20Plugin%20Template-blue?style=flat-square&logo=github)](https://github.com/windingwind/zotero-plugin-template)
 
 ## <a id="deutsch"></a>🇩🇪 Deutsch
+
 ## Warum?
 
 In Zotero stehen Buchteile alphabetisch verstreut in der Bibliothek, getrennt vom Sammelwerk, aus dem sie stammen. Wer mit Handbüchern, Kommentaren oder Festschriften arbeitet, verliert so schnell den Überblick. Book Group zeigt jedes Sammelwerk mit seinen Beiträgen als zusammenhängende Gruppe an.
@@ -28,7 +29,6 @@ In Zotero stehen Buchteile alphabetisch verstreut in der Bibliothek, getrennt vo
 Beispiel:
 <img width="1004" height="395" alt="image" src="https://github.com/user-attachments/assets/1ac1578d-6a67-4562-8cfb-fba48a398a18" />
 
-
 ## Schnellstart
 
 1. `book-group.xpi` aus den [Releases](https://github.com/justanotherjurastudent/zotero_SortPartsToBooks/releases) herunterladen.
@@ -45,12 +45,12 @@ Ausführliche Anleitung: [Benutzerhandbuch](docs/user-guide.md)
 - **Release:** `book-group.xpi` herunterladen und wie oben installieren.
 - **Selbst bauen:** Node.js mit npm vorausgesetzt.
 
-  ```bash
-  npm install
-  npm run build
-  ```
+    ```bash
+    npm install
+    npm run build
+    ```
 
-  Die fertige Datei liegt unter `.scaffold/build/book-group.xpi`.
+    Die fertige Datei liegt unter `.scaffold/build/book-group.xpi`.
 
 ## Entwicklung
 
@@ -112,7 +112,6 @@ Die Gruppierung greift auf interne, undokumentierte Teile der Zotero-Eintragslis
 
 Basiert auf [windingwind/zotero-plugin-template](https://github.com/windingwind/zotero-plugin-template).
 
-
 ---
 
 ## <a id="english"></a>🇬🇧 English
@@ -154,22 +153,22 @@ Detailed Guide: [User Guide](docs/user-guide.md)
 - **Release:** Download `book-group.xpi` and install as shown above.
 - **Build Yourself:** Node.js with npm required.
 
-  ```bash
-  npm install
-  npm run build
-  ```
+    ```bash
+    npm install
+    npm run build
+    ```
 
-  The finished file is located in `.scaffold/build/book-group.xpi`.
+    The finished file is located in `.scaffold/build/book-group.xpi`.
 
 ## Development
 
-| Command              | Purpose                                                                   |
-| -------------------- | -------------------------------------------------------------------------- |
-| `npm run build`      | Build plugin (`.scaffold/build/`) and check TypeScript                    |
+| Command              | Purpose                                                                  |
+| -------------------- | ------------------------------------------------------------------------ |
+| `npm run build`      | Build plugin (`.scaffold/build/`) and check TypeScript                   |
 | `npm start`          | Start Zotero with the plugin in development mode (`zotero-plugin serve`) |
-| `npm run test:unit`  | Run unit tests of pure logic in Node (`test/unit/`)                       |
-| `npm test`           | Run integration tests in a real Zotero instance (`test/zotero/`)          |
-| `npm run lint:check` | Check Prettier and ESLint                                                 |
+| `npm run test:unit`  | Run unit tests of pure logic in Node (`test/unit/`)                      |
+| `npm test`           | Run integration tests in a real Zotero instance (`test/zotero/`)         |
+| `npm run lint:check` | Check Prettier and ESLint                                                |
 
 `npm run test:unit` uses `node --test` directly on `.ts` files and therefore requires a Node version that runs TypeScript natively (e.g., Node 24).
 

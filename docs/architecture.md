@@ -85,14 +85,14 @@ Das Ergebnis ist damit deterministisch und unabhängig von der Reihenfolge der D
 - **Laden** per SQL: alle nicht gelöschten Items der Gruppierungstypen (`items`, ohne `deletedItems`) und alle `dc:relation`-Zeilen dieser Items (`itemRelations` ⨝ `relationPredicates` ⨝ `items`). Objekt-URIs werden mit `Zotero.URI.getURIItemLibraryKey()` in Bibliothek und Key zerlegt, genau wie Zotero es in `Item.prototype._getRelatedItems()` tut.
 - **Metadaten bei Mehrdeutigkeit:** Nur für Beiträge mit mehreren Sammelwerken (`findAmbiguousContributions`) lädt `loadVolumeMetadata()` Titel und Herausgeber über die Item-API (`Zotero.Items.getAsync` und `loadDataTypes(["itemData", "creators"])`). Beim Beitrag wird der Buchtitel über das Basisfeld `publicationTitle` gelesen, das in Zotero auf `bookTitle` bzw. `encyclopediaTitle` abgebildet ist. `markMetadataMatches()` markiert daraufhin die passenden Verknüpfungen.
 - **Notifier-Observer** `bookgroup-relations` auf Typ `item` mit Priorität 40:
-  - `delete`: IDs werden sofort aus dem Index entfernt; bei Änderung werden Listener benachrichtigt. Zusätzlich wird ein Löschzähler erhöht.
-  - `trash`: Ist eine betroffene ID relevant, werden die IDs sofort entfernt, danach wird ein Rebuild geplant.
-  - alle anderen Ereignisse (`add`, `modify`, `refresh`, …): Rebuild wird geplant, wenn eine der IDs im Index steht oder ein Item eines Gruppierungstyps ist.
+    - `delete`: IDs werden sofort aus dem Index entfernt; bei Änderung werden Listener benachrichtigt. Zusätzlich wird ein Löschzähler erhöht.
+    - `trash`: Ist eine betroffene ID relevant, werden die IDs sofort entfernt, danach wird ein Rebuild geplant.
+    - alle anderen Ereignisse (`add`, `modify`, `refresh`, …): Rebuild wird geplant, wenn eine der IDs im Index steht oder ein Item eines Gruppierungstyps ist.
 - **Rebuild** ist ein vollständiger Neuaufbau, entprellt über `REBUILD_DELAY` = 300 ms.
-  - Parallele Aufrufe werden zusammengelegt: Ein Aufruf während eines laufenden Aufbaus plant genau einen Folgeaufbau.
-  - Wurde während des Ladens ein Item gelöscht (Löschzähler hat sich geändert), wird das Ergebnis verworfen und neu geladen.
-  - Listener werden **nur benachrichtigt, wenn sich eine Zuordnung geändert hat**. Reine Feldänderungen (Titel, Datum, Seiten) behandelt der Sortier-Patch über vollständige Sortierungen.
-  - Die Dauer wird als `Relation cache: N links in X ms` protokolliert.
+    - Parallele Aufrufe werden zusammengelegt: Ein Aufruf während eines laufenden Aufbaus plant genau einen Folgeaufbau.
+    - Wurde während des Ladens ein Item gelöscht (Löschzähler hat sich geändert), wird das Ergebnis verworfen und neu geladen.
+    - Listener werden **nur benachrichtigt, wenn sich eine Zuordnung geändert hat**. Reine Feldänderungen (Titel, Datum, Seiten) behandelt der Sortier-Patch über vollständige Sortierungen.
+    - Die Dauer wird als `Relation cache: N links in X ms` protokolliert.
 - `isPending` ist `true`, solange ein Rebuild geplant ist oder läuft (von Tests verwendet).
 
 `src/modules/itemTypes.ts` bildet `itemTypeID` auf „container“ (`book`) oder „contribution“ (`bookSection`, `encyclopediaArticle`) ab. Zotero kennt keinen eigenen Eintragstyp für Enzyklopädien; sie werden als Buch erfasst, deshalb gruppieren sich Enzyklopädieartikel unter Büchern. `safeGetItem()` kapselt `Zotero.Items.get()`, das für nicht geladene Items eine `UnloadedDataException` auslöst. Sortier- und Render-Code darf keine Ausnahmen auslösen, daher liefert `safeGetItem()` in diesem Fall `null`.
@@ -159,9 +159,9 @@ Weitere Aufgaben:
 - `scheduleResort()` fasst mehrere Anfragen innerhalb von `RESORT_DELAY` = 50 ms zu einem `refresh({ resort: true })` zusammen.
 - `destroy()` setzt ein `destroyed`-Flag, bricht einen geplanten Resort ab, löst alle Fenster und setzt `columnKey` auf `null`. Danach laufen keine verzögerten Aktionen mehr.
 - Zeilenrollen bei der Dekoration (`decorateRow`):
-  - `child`: der Beitrag sowie dessen Anhänge und Notizen, wenn das Sammelwerk in derselben Ansicht sichtbar ist → Einrückung und Kontur.
-  - `parent`: das Sammelwerk (Ebene 0), wenn mindestens ein Beitrag sichtbar ist → Hintergrund und Kontur.
-  - `member`: Anhänge und Notizen des Sammelwerks → nur Kontur.
+    - `child`: der Beitrag sowie dessen Anhänge und Notizen, wenn das Sammelwerk in derselben Ansicht sichtbar ist → Einrückung und Kontur.
+    - `parent`: das Sammelwerk (Ebene 0), wenn mindestens ein Beitrag sichtbar ist → Hintergrund und Kontur.
+    - `member`: Anhänge und Notizen des Sammelwerks → nur Kontur.
 - Dialog-Bäume werden beim ersten Rendern einmalig per `setTimeout` auf die Gruppierungsspalte umgeschaltet (`maybeAutoActivate`), weil ihre Initialisierung asynchron nach dem `load`-Ereignis erfolgt. Der Hauptbaum wird nie automatisch umgeschaltet.
 
 Innerhalb eines Sortierdurchlaufs werden `GroupEntry`-Objekte pro Item zwischengespeichert. Als Kennung des Durchlaufs dient das Objekt `_sortCache`, das Zotero in `_initSortState()` für jeden Durchlauf neu anlegt.
@@ -185,10 +185,10 @@ Bindet die Dialoge „Zitation hinzufügen/bearbeiten“ (`integration/citationD
 - Ein `Services.wm`-Listener wartet auf neue Fenster und prüft nach deren `load` die URL. Bereits offene Dialoge werden beim Start ebenfalls erfasst.
 - **Bibliotheksansicht / Literaturverzeichnis-Dialog:** Stylesheet einfügen und `TreeIntegration.attach(win)` aufrufen. Es gelten dieselben Patches wie im Hauptfenster.
 - **Listenansicht des Zitationsdialogs:** Die Ergebnisse sind hier keine Baumzeilen, sondern `.item`-Knoten, die `Layout.refreshItemsList()` bei jeder Aktualisierung in `#list-layout .search-items` neu erzeugt. Ein `MutationObserver` (`childList`) auf diesem Container ruft danach `groupList()` auf:
-  - Pro Abschnitt (`.itemsContainer`) wird eine Zielreihenfolge berechnet, in der Beiträge direkt hinter ihrem Sammelwerk stehen, und die CSS-Klassen werden gesetzt.
-  - Nur Knoten, die nicht an ihrer Zielposition stehen, werden mit `insertBefore` verschoben.
-  - `refreshItemsList()` hat vorher schon den Fokus gesetzt und den ersten Eintrag vorausgewählt (`markPreSelected`). Ändert sich durch die Umgruppierung der erste Eintrag, werden die Klassen `current`/`selected` auf den neuen ersten Eintrag übertragen und `listLayout.updateSelectedItems()` aufgerufen. Ein zuvor fokussierter Knoten erhält den Fokus zurück.
-  - Der eingeklappte Stapel „Ausgewählt“ (`.section.expandable`) wird ausgelassen.
+    - Pro Abschnitt (`.itemsContainer`) wird eine Zielreihenfolge berechnet, in der Beiträge direkt hinter ihrem Sammelwerk stehen, und die CSS-Klassen werden gesetzt.
+    - Nur Knoten, die nicht an ihrer Zielposition stehen, werden mit `insertBefore` verschoben.
+    - `refreshItemsList()` hat vorher schon den Fokus gesetzt und den ersten Eintrag vorausgewählt (`markPreSelected`). Ändert sich durch die Umgruppierung der erste Eintrag, werden die Klassen `current`/`selected` auf den neuen ersten Eintrag übertragen und `listLayout.updateSelectedItems()` aufgerufen. Ein zuvor fokussierter Knoten erhält den Fokus zurück.
+    - Der eingeklappte Stapel „Ausgewählt“ (`.section.expandable`) wird ausgelassen.
 - Nach `unregister()` ist `groupList()` wirkungslos (`destroyed`-Flag), auch für `load`-Listener von Dialogen, die sich gerade noch öffnen.
 - Beim `unload` des Dialogs werden Observer, Patches, Klassen und Stylesheet entfernt.
 
@@ -423,6 +423,39 @@ Weil der Observer erst nach `refreshItemsList()` läuft, übernimmt `groupList()
 ### Persistente Zufallsfarben über `libraryID/key`
 
 Item-IDs sind lokal und können sich z. B. nach einem Neuaufbau der Datenbank ändern. Bibliothek und Key sind stabil. Die Tabelle wird kurz verzögert gespeichert (250 ms), weil beim ersten Rendern vieler neuer Gruppen sonst sehr viele Pref-Schreibvorgänge anfallen. Die Verzögerung ist kurz gewählt und wird beim Entladen jedes Hauptfensters durch `flush()` ergänzt, weil `onShutdown()` beim Beenden von Zotero nicht aufgerufen wird.
+
+## Datenbankzugriff und -sicherheit
+
+Das Plugin greift ausschließlich **lesend** auf Zoteros SQLite-Datenbank zu. Es gibt keine schreibenden SQL-Anweisungen (`INSERT`, `UPDATE`, `DELETE`) und kein `saveTx()` oder `save()` auf `Zotero.Item`-Objekten. Alle persistenten Daten des Plugins (Gruppenfarben, Reihenfolge, Einstellungen) liegen in Zotero-Preferences (`Zotero.Prefs`), nicht in der Item-Datenbank.
+
+### Lesende Datenbankzugriffe
+
+`RelationCache` nutzt zwei `Zotero.DB.queryAsync()`-Aufrufe (reine `SELECT`-Anweisungen):
+
+| Methode               | Tabellen                                                        | Zweck                                                                          |
+| --------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `loadCandidates()`    | `items`, `deletedItems`                                         | Alle nicht gelöschten Items der Gruppierungstypen (book, bookSection, …)       |
+| `loadRelationRows()`  | `itemRelations`, `relationPredicates`, `items`                  | `dc:relation`-Zeilen dieser Items, gefiltert auf das richtige Prädikat         |
+
+Warum SQL statt `item.relatedItems`: Beim Start sind die Relationen nicht für jedes Item geladen (`Item.prototype._getRelatedItems()` ruft `_requireData('relations')` auf). Ein Zugriff über die Item-API würde für ungeladene Items eine `UnloadedDataException` auslösen oder erzwingen, dass das Plugin die Relationen aller Items einzeln nachlädt. Das ist bei großen Bibliotheken zu langsam. Die SQL-Abfragen sind gegen **Zotero 10.0.2** geprüft.
+
+Parameter-Sicherheit:
+
+- Typ-IDs werden als Ganzzahlen aus `Zotero.ItemTypes.getID()` bezogen und als Literal in die Abfrage eingesetzt. Da `Zotero.ItemTypes.getID()` nur `number | false` liefert und die Werte vorab gefiltert werden, ist eine SQL-Injection ausgeschlossen.
+- Das Relationen-Prädikat (`dc:relation`) wird als gebundener Parameter (`?`) übergeben.
+
+### Warum keine DB-Korruption möglich ist
+
+1. **Kein Schreibzugriff:** Das Plugin ändert keine Items, Relationen, Anhänge oder Sammlungen. Es liest die Relationen und berechnet daraus eine Sortier- und Darstellungslogik.
+2. **Kein eigenes Schema:** Das Plugin erzeugt keine eigenen Tabellen, Indizes oder Trigger.
+3. **Keine Transaktionen:** Da keine Schreiboperationen stattfinden, kann es keine unvollständigen Transaktionen geben.
+4. **Preferences sind unabhängig:** Zotero speichert Preferences in `prefs.js`, nicht in `zotero.sqlite`. Selbst ein Fehler beim Schreiben einer Preference kann die Item-Datenbank nicht beschädigen.
+5. **Defensiver Observer:** Der Notifier-Observer entfernt Items bei `delete` und `trash` nur aus dem In-Memory-Index — er greift dabei nicht auf die Datenbank zu.
+6. **Fehlerbehandlung:** Alle Listener-Callbacks laufen in `try`/`catch` mit `Zotero.logError()`. Ein Fehler in einem Listener bricht nicht die laufende Zotero-Aktion ab.
+
+### Wartbarkeitsrisiko
+
+Die SQL-Abfragen greifen auf interne Tabellennamen (`items`, `deletedItems`, `itemRelations`, `relationPredicates`) zu. Ändert Zotero sein DB-Schema in einer künftigen Version, brechen die Abfragen — aber die Datenbank bleibt unbeschädigt, weil das Plugin nur liest. Die betroffenen Stellen sind in [Verwendete Zotero-Interna und Update-Risiko](#verwendete-zotero-interna-und-update-risiko) aufgeführt.
 
 ## Verwendete Zotero-Interna und Update-Risiko
 

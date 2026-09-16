@@ -5,12 +5,14 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/" # Location of package manifests
-    schedule:
-      interval: "weekly"
-    groups:
-      all-non-major:
-        update-types:
-          - "minor"
-          - "patch"
+    - package-ecosystem: "npm" # See documentation for possible values
+      directory: "/" # Location of package manifests
+      schedule:
+          interval: "weekly"
+      cooldown:
+          default-days: 7
+      groups:
+          all-non-major:
+              update-types:
+                  - "minor"
+                  - "patch"

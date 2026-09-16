@@ -8,15 +8,15 @@ export { createZToolkit };
  * would add UI helpers this plugin does not need.
  */
 class BookGroupToolkit extends BasicTool {
-  unregisterAll() {
-    unregister(this);
-  }
+	unregisterAll() {
+		unregister(this);
+	}
 }
 
 function createZToolkit() {
-  const toolkit = new BookGroupToolkit();
-  toolkit.basicOptions.log.prefix = `[${config.addonName}]`;
-  toolkit.basicOptions.log.disableConsole = __env__ === "production";
-  toolkit.basicOptions.api.pluginID = config.addonID;
-  return toolkit;
+	const toolkit = new BookGroupToolkit();
+	toolkit.basicOptions.log.prefix = `[${config.addonName}]`;
+	toolkit.basicOptions.log.disableConsole = __env__ === "production";
+	toolkit.basicOptions.api.pluginID = config.addonID;
+	return toolkit;
 }

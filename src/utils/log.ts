@@ -5,5 +5,5 @@ import { config } from "../../package.json";
  * Zotero debug output at warning level.
  */
 export function warn(message: string): void {
-  Zotero.debug(`[${config.addonName}] ${message}`, 2);
+	Zotero.debug(`[${config.addonName}] ${message}`, 2);
 }
