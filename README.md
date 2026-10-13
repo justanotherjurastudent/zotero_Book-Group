@@ -112,6 +112,11 @@ Die Gruppierung greift auf interne, undokumentierte Teile der Zotero-Eintragslis
 
 Basiert auf [windingwind/zotero-plugin-template](https://github.com/windingwind/zotero-plugin-template).
 
+## Support
+Unterstütze meinen freien Content:
+
+<a href="https://www.buymeacoffee.com/justanotherjurastudent" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
 ---
 
 ## <a id="english"></a>🇬🇧 English
@@ -219,3 +224,8 @@ The grouping accesses internal, undocumented parts of Zotero's item list that ha
 [AGPL-3.0-or-later](LICENSE)
 
 Based on [windingwind/zotero-plugin-template](https://github.com/windingwind/zotero-plugin-template).
+
+## Support
+Suuport my free content:
+
+<a href="https://www.buymeacoffee.com/justanotherjurastudent" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
